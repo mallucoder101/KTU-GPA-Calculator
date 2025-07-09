@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Group A</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body { background: #e7e1e1; }
+        .main-header {
+            background: linear-gradient(90deg, #2563eb, #a78bfa);
+            color: #fff;
+            font-weight: 700;
+            font-size: 1.3rem;
+            padding: 1.2rem 2rem;
+            letter-spacing: 0.5px;
+            text-align: center;
+        }
+        .cgpa-badge {
+            position: sticky;
+            top: 0.5rem;
+            z-index: 100;
+            margin: 2rem auto 2rem auto;
+            background: linear-gradient(90deg, #818cf8, #a5b4fc);
+            color: #fff;
+            font-weight: 700;
+            font-size: 1.2rem;
+            border-radius: 12px;
+            padding: 0.7rem 2.5rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            display: flex;
+            justify-content: center;
+            width: max-content;
+            transition: all 0.2s;
+        }
+        .semester-card {
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+            margin: 10px auto 2.5rem auto;
+            max-width: 700px;
+            padding: 2rem 2rem 1.5rem 2rem;
+        }
+        .semester-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1.2rem;
+            background: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+        th, td {
+            border: 1px solid #e5e7eb;
+            padding: 0.6rem 0.5rem;
+            text-align: left;
+        }
+        th {
+            background: #f3f4f6;
+            font-weight: 600;
+        }
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        .grade-select {
+            width: 60px;
+            padding: 0.2rem 0.3rem;
+            border-radius: 6px;
+            border: 1px solid #cbd5e1;
+            font-size: 1rem;
+        }
+        .sgpa-btn {
+            background: linear-gradient(90deg, #6366f1, #60a5fa);
+            color: #fff;
+            font-weight: 600;
+            border: none;
+            border-radius: 8px;
+            padding: 0.7rem 1.5rem;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s, box-shadow 0.2s;
+            box-shadow: 0 2px 8px rgba(99,102,241,0.08);
+        }
+        .sgpa-btn:hover {
+            background: linear-gradient(90deg, #4f46e5, #2563eb);
+        }
+        .sgpa-result {
+            font-weight: 700;
+            color:#ffffff;
+            margin-left: 1rem;
+        }
+        @media (max-width: 600px) {
+            .semester-card { padding: 1rem 0.5rem; }
+            .main-header { font-size: 1rem; padding: 1rem 0.5rem; }
+            .cgpa-badge {
+                position: sticky;
+                top: 0;
+                width: 100vw;
+                border-radius: 0;
+                left: 0;
+                right: 0;
+                margin: 0;
+                font-size: 1rem;
+                padding: 0.7rem 0.5rem;
+                justify-content: flex-start;
+            }
+            .table-responsive {
+                width: 100vw;
+                margin-left: -0.5rem;
+                padding-left: 0.5rem;
+                padding-right: 0.5rem;
+            }
+            table {
+                border: none;
+                background: none;
+                box-shadow: none;
+            }
+            thead {
+                display: none;
+            }
+            tbody tr {
+                display: block;
+                background: #fff;
+                border-radius: 12px;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+                margin-bottom: 1rem;
+                padding: 1rem 0.7rem 0.7rem 0.7rem;
+            }
+            tbody td {
+                display: block;
+                border: none;
+                padding: 0.2rem 0 0.2rem 0;
+                font-size: 1rem;
+            }
+            tbody td:nth-child(1) { display: none; }
+            tbody td:nth-child(2) {
+                font-weight: 600;
+                color: #3730a3;
+                font-size: 1.08rem;
+                margin-bottom: 0.2rem;
+            }
+            tbody td:nth-child(3) {
+                color: #6366f1;
+                font-size: 0.98rem;
+                margin-bottom: 0.2rem;
+            }
+            tbody td:nth-child(3):before {
+                content: 'Credit: ';
+                color: #64748b;
+                font-weight: 500;
+            }
+            tbody td:nth-child(4):before {
+                content: 'Grade: ';
+                color: #64748b;
+                font-weight: 500;
+            }
+            tbody td:nth-child(4) {
+                margin-bottom: 0.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-header">KTU - GPA Calculator 2024 Scheme</div>
+    <div class="cgpa-badge" id="cgpaBadge">CGPA : <span id="cgpa">0.00</span></div>
+    <div class="semester-card">
+        <div class="semester-title">Semester 1</div>
+        <div class="table-responsive"><table>
+            <thead>
+                <tr>
+                    <th>SNo</th>
+                    <th>Subject</th>
+                    <th>Credit</th>
+                    <th>Grade</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td data-label="SNo">1</td><td data-label="Subject">Mathematics for Electrical Science-1</td><td data-label="Credit">3</td><td data-label="Grade"><select class="grade-select"><option>S</option><option>A+</option><option>A</option><option>B+</option><option>B</option><option>C</option><option>P</option><option>F</option></select></td></tr>
+                <tr><td data-label="SNo">2</td><td data-label="Subject">Physics for Electrical Science</td><td data-label="Credit">4</td><td data-label="Grade"><select class="grade-select"><option>S</option><option>A+</option><option>A</option><option>B+</option><option>B</option><option>C</option><option>P</option><option>F</option></select></td></tr>
+                <tr><td data-label="SNo">3</td><td data-label="Subject">Chemistry for Electrical Science</td><td data-label="Credit">4</td><td data-label="Grade"><select class="grade-select"><option>S</option><option>A+</option><option>A</option><option>B+</option><option>B</option><option>C</option><option>P</option><option>F</option></select></td></tr>
+                <tr><td data-label="SNo">4</td><td data-label="Subject">Engineering Graphics and Computer Aided Drawing</td><td data-label="Credit">3</td><td data-label="Grade"><select class="grade-select"><option>S</option><option>A+</option><option>A</option><option>B+</option><option>B</option><option>C</option><option>P</option><option>F</option></select></td></tr>
+                <tr><td data-label="SNo">5</td><td data-label="Subject">Introduction to Electrical & Electronics Engineering (Part 1: Electrical Engineering & Part 2: Electronics Engineering)</td><td data-label="Credit">4</td><td data-label="Grade"><select class="grade-select"><option>S</option><option>A+</option><option>A</option><option>B+</option><option>B</option><option>C</option><option>P</option><option>F</option></select></td></tr>
+                <tr><td data-label="SNo">6</td><td data-label="Subject">Algorithmic Thinking with Python</td><td data-label="Credit">4</td><td data-label="Grade"><select class="grade-select"><option>S</option><option>A+</option><option>A</option><option>B+</option><option>B</option><option>C</option><option>P</option><option>F</option></select></td></tr>
+                <tr><td data-label="SNo">7</td><td data-label="Subject">Basic Electrical and Electronics Engineering Workshop</td><td data-label="Credit">1</td><td data-label="Grade"><select class="grade-select"><option>S</option><option>A+</option><option>A</option><option>B+</option><option>B</option><option>C</option><option>P</option><option>F</option></select></td></tr>
+                <tr><td data-label="SNo">8</td><td data-label="Subject">Life Skills and Professional Communication</td><td data-label="Credit">2</td><td data-label="Grade"><select class="grade-select"><option>S</option><option>A+</option><option>A</option><option>B+</option><option>B</option><option>C</option><option>P</option><option>F</option></select></td></tr>
+            </tbody>
+        </table></div>
+        <button class="sgpa-btn" onclick="calculateSGPA(1)">Calculate SGPA : <span class="sgpa-result" id="sgpa1">0.00</span></button>
+    </div>
+    <div class="semester-card">
+        <div class="semester-title">Semester 2</div>
+        <div class="table-responsive"><table>
+            <thead>
+                <tr>
+                    <th>SNo</th>
+                    <th>Subject</th>
+                    <th>Credit</th>
+                    <th>Grade</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>1</td><td>Mathematics for Physical Science-2</td><td>3</td><td><select class="grade-select"><option>S</option><option>A+</option><option>A</option><option>B+</option><option>B</option><option>C</option><option>P</option><option>F</option></select></td></tr>
+                <tr><td>2</td><td>Physics for Physical Science</td><td>4</td><td><select class="grade-select"><option>S</option><option>A+</option><option>A</option><option>B+</option><option>B</option><option>C</option><option>P</option><option>F</option></select></td></tr>
+                <tr><td>3</td><td>Engineering Graphics and Computer Aided Drawing</td><td>3</td><td><select class="grade-select"><option>S</option><option>A+</option><option>A</option><option>B+</option><option>B</option><option>C</option><option>P</option><option>F</option></select></td></tr>
+                <tr><td>4</td><td>Introduction to Electrical & Electronics Engineering (part 1: Electrical Engineering)<br>(Part 2: Electronics Engineering)</td><td>4</td><td><select class="grade-select"><option>S</option><option>A+</option><option>A</option><option>B+</option><option>B</option><option>C</option><option>P</option><option>F</option></select></td></tr>
+                <tr><td>5</td><td>Programme Core-1</td><td>4</td><td><select class="grade-select"><option>S</option><option>A+</option><option>A</option><option>B+</option><option>B</option><option>C</option><option>P</option><option>F</option></select></td></tr>
+                <tr><td>6</td><td>Engineering Entrepreneurship & IPR</td><td>2</td><td><select class="grade-select"><option>S</option><option>A+</option><option>A</option><option>B+</option><option>B</option><option>C</option><option>P</option><option>F</option></select></td></tr>
+                <tr><td>7</td><td>Health and Wellness</td><td>1</td><td><select class="grade-select hw-select"><option>Pass</option><option>Fail</option></select></td></tr>
+                <tr><td>6</td><td>Basic Electrical and Electronics Engineering Workshop <br>Civil Engineering Drafting Lab (CE, CV)</td><td>1</td><td><select class="grade-select"><option>S</option><option>A+</option><option>A</option><option>B+</option><option>B</option><option>C</option><option>P</option><option>F</option></select></td></tr>
+                <tr><td>6</td><td>Skill Enhancement Course: Digital 101(NASSCOM)</td><td>1</td><td><select class="grade-select"><option>S</option><option>A+</option><option>A</option><option>B+</option><option>B</option><option>C</option><option>P</option><option>F</option></select></td></tr>
+            </tbody>
+        </table></div>
+        <button class="sgpa-btn" onclick="calculateSGPA(2)">Calculate SGPA : <span class="sgpa-result" id="sgpa2">0.00</span></button>
+    </div>
+    <div class="semester-card">
+        <div class="semester-title">Semester 3</div>
+        <div class="table-responsive"><table>
+            <thead>
+                <tr>
+                    <th>SNo</th>
+                    <th>Subject</th>
+                    <th>Credit</th>
+                    <th>Grade</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>1</td><td>Mathematics for -------Science-3</td><td>3</td><td><select class="grade-select"><option>S</option><option>A+</option><option>A</option><option>B+</option><option>B</option><option>C</option><option>P</option><option>F</option></select></td></tr>
+                <tr><td>2</td><td>Programme Core-2</td><td>4</td><td><select class="grade-select"><option>S</option><option>A+</option><option>A</option><option>B+</option><option>B</option><option>C</option><option>P</option><option>F</option></select></td></tr>
+                <tr><td>3</td><td>Programme Core-3</td><td>4</td><td><select class="grade-select"><option>S</option><option>A+</option><option>A</option><option>B+</option><option>B</option><option>C</option><option>P</option><option>F</option></select></td></tr>
+                <tr><td>4</td><td>Programme Core-PBL-1</td><td>4</td><td><select class="grade-select"><option>S</option><option>A+</option><option>A</option><option>B+</option><option>B</option><option>C</option><option>P</option><option>F</option></select></td></tr>
+                <tr><td>5</td><td>Introduction to Artificial Intelligence and Data Science</td><td>4</td><td><select class="grade-select"><option>S</option><option>A+</option><option>A</option><option>B+</option><option>B</option><option>C</option><option>P</option><option>F</option></select></td></tr>
+                <tr><td>6</td><td>Engineering Ethics and Sustainable Development</td><td>2</td><td><select class="grade-select"><option>S</option><option>A+</option><option>A</option><option>B+</option><option>B</option><option>C</option><option>P</option><option>F</option></select></td></tr>
+                <tr><td>7</td><td>Lab-1</td><td>2</td><td><select class="grade-select"><option>S</option><option>A+</option><option>A</option><option>B+</option><option>B</option><option>C</option><option>P</option><option>F</option></select></td></tr>
+                <tr><td>8</td><td>Lab-2</td><td>2</td><td><select class="grade-select"><option>S</option><option>A+</option><option>A</option><option>B+</option><option>B</option><option>C</option><option>P</option><option>F</option></select></td></tr>
+                <tr><td>9</td><td>Remedial/Minor Course (Optional)</td><td>4</td><td><select class="grade-select optional-select"><option>Not Taken</option><option>S</option><option>A+</option><option>A</option><option>B+</option><option>B</option><option>C</option><option>P</option><option>F</option></select></td></tr>
+            </tbody>
+        </table></div>
+        <button class="sgpa-btn" onclick="calculateSGPA(3)">Calculate SGPA : <span class="sgpa-result" id="sgpa3">0.00</span></button>
+    </div>
+    <script>
+        // Grade to point mapping
+        const gradePoints = { 'S': 10, 'A+': 9, 'A': 8.5, 'B+': 8, 'B': 7, 'C': 6, 'P': 5, 'F': 0 };
+        function calculateSGPA(sem) {
+            let card = document.getElementsByClassName('semester-card')[sem-1];
+            let selects = card.querySelectorAll('.grade-select');
+            let credits = card.querySelectorAll('tbody td:nth-child(3)');
+            let totalCredits = 0, totalPoints = 0;
+            selects.forEach((sel, i) => {
+                let credit = parseInt(credits[i].textContent);
+                if (sel.disabled) {
+                    // Skip MOOCs or disabled selects
+                    return;
+                }
+                if (sel.classList.contains('hw-select')) {
+                    // Health and Wellness: Pass/Fail logic
+                    // Do NOT count in SGPA at all
+                    return;
+                } else if (sel.classList.contains('optional-select')) {
+                    // Optional course: only add if "Not Taken" is not selected
+                    if (sel.value !== 'Not Taken') {
+                        totalCredits += credit;
+                        totalPoints += gradePoints[sel.value] * credit;
+                    }
+                } else {
+                    let grade = sel.value;
+                    totalCredits += credit;
+                    totalPoints += gradePoints[grade] * credit;
+                }
+            });
+            let sgpa = totalCredits ? (totalPoints / totalCredits) : 0;
+            document.getElementById('sgpa'+sem).textContent = sgpa.toFixed(2);
+            updateCGPA();
+        }
+        function updateCGPA() {
+            let totalWeightedSGPA = 0;
+            let totalCredits = 0;
+            let semesterCards = document.getElementsByClassName('semester-card');
+            for (let i = 0; i < semesterCards.length; i++) {
+                let sgpa = parseFloat(document.getElementById('sgpa' + (i + 1)).textContent);
+                // Calculate total credits for this semester
+                let credits = 0;
+                let card = semesterCards[i];
+                let selects = card.querySelectorAll('.grade-select');
+                let creditCells = card.querySelectorAll('tbody td:nth-child(3)');
+                selects.forEach((sel, j) => {
+                    let credit = parseInt(creditCells[j].textContent);
+                    if (sel.classList.contains('hw-select')) {
+                        if (sel.value === 'Pass') {
+                            credits += credit;
+                        }
+                    } else if (sel.classList.contains('optional-select')) {
+                        if (sel.value !== 'Not Taken') {
+                            credits += credit;
+                        }
+                    } else if (!sel.disabled) {
+                        credits += credit;
+                    }
+                });
+                if (!isNaN(sgpa) && credits > 0) {
+                    totalWeightedSGPA += sgpa * credits;
+                    totalCredits += credits;
+                }
+            }
+            let cgpa = totalCredits ? (totalWeightedSGPA / totalCredits) : 0;
+            document.getElementById('cgpa').textContent = cgpa.toFixed(2);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,130 @@
+*{
+    padding: 0;
+    margin: 0;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #f8fafc;
+    min-height: 100vh;
+}
+
+.header{
+    background: linear-gradient(135deg, #4f46e5, #7c3aed);
+    color: white;
+    text-align: center;
+    padding: 2rem 0;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.header h1 {
+    font-size: 2rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+hr {
+    border: none;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #e2e8f0, transparent);
+    margin: 0;
+}
+
+.cardcontainer{
+    margin-top: 4rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    padding: 0 1rem;
+}
+
+.card{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: white;
+    width: 100%;
+    max-width: 500px;
+    height: 80px;
+    border-radius: 16px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    background-color: #4f46e5;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.group-btn {
+    background: linear-gradient(135deg, #1e293b, #334155);
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.group-btn:hover {
+    background: linear-gradient(135deg, #4f46e5, #6366f1);
+    transform: translateY(-1px);
+    box-shadow: 0 8px 15px -3px rgba(0, 0, 0, 0.2), 0 4px 6px -2px rgba(0, 0, 0, 0.1);
+}
+
+.group-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 600px) {
+    body {
+        padding: 0;
+        margin: 0;
+        min-width: 100vw;
+        overflow-x: hidden;
+    }
+    .header h1 {
+        font-size: 1.2rem;
+        padding: 0.5rem 0.2rem;
+    }
+    .cardcontainer {
+        margin-top: 2rem;
+        gap: 1rem;
+        padding: 0 0.2rem;
+    }
+    .card {
+        max-width: 98vw;
+        height: auto;
+        min-height: 60px;
+        padding: 0.5rem 0.2rem;
+    }
+    .group-btn {
+        font-size: 1rem;
+        padding: 0.7rem 1rem;
+        border-radius: 10px;
+    }
+    .cgpa-badge {
+        position: sticky;
+        top: 0;
+        width: 100vw;
+        border-radius: 0;
+        left: 0;
+        right: 0;
+        margin: 0;
+        font-size: 1rem;
+        padding: 0.7rem 0.5rem;
+        justify-content: flex-start;
+    }
+}
